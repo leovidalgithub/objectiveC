@@ -14,6 +14,15 @@ int main (int argc, const char *argv[])
         answer = 100;
         result = answer / 11;
         NSLog (@"\n\nThe result is %.2f\n", result + 5.5);
+        
+        int nbr1 = 10;
+        float nbr2 = 10.55;
+        char ch = 'c';
+        BOOL valid = YES;
+        NSLog (@"\n\nnbr1 = %i, nbr2 = %f, char = %c, valid = %i\n\n", nbr1, nbr2, ch, valid);
+        if (valid) {
+            NSLog (@"\n\nvalid is YES\n");
+        }
     }
     return 0;
 }
