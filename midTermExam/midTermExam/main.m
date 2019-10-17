@@ -6,64 +6,17 @@
 //
 
 #import <Foundation/Foundation.h>
-#include <stdio.h>
-#include <stdlib.h>
-
-// Super Class Person from which Player will inheritance
-@interface Person : NSObject{
-    NSString *fname;
-    NSString *lname;
-    NSString *sex;
-    int age;
-    NSString *email;
-    NSString *password;
-}
-    -(NSString *)getFirstname;
-    -(NSString *)getLastname;
-    -(NSString *)getEmail;
-    -(NSString *)getPassword;
-    -(int)getAge;
-    -(void)setPersonInfo:(NSString *)_fname :(NSString *)_lname :(NSString *)_email :(NSString *)_password :(int)_age :(NSString *)_sex;
-@end
-
-@implementation Person
-    -(NSString *)getFirstname {
-        return fname;
-    }
-    -(NSString *)getLastname {
-        return lname;
-    }
-    -(NSString *)getEmail {
-        return email;
-    }
-    -(NSString *)getPassword {
-        return password;
-    }
-    -(int)getAge {
-        return age;
-    }
-    -(NSString *)getSex {
-        return sex;
-    }
-    -(void)setPersonInfo:(NSString *)_fname :(NSString *)_lname :(NSString *)_email :(NSString *)_password :(int)_age :(NSString *)_sex {
-        fname = _fname;
-        lname = _lname;
-        email = _email;
-        password = _password;
-        age = _age;
-        sex = _sex;
-    }
-@end
+#import "Person.h"
 
 // Class Player inheriting from Person
 @interface Player : Person {
     NSString *userName;
-    int accumulatedPoints;
+    long accumulatedPoints;
 }
     -(NSString *)getUserName;
-    -(int)getAccumulatedPoints;
+    -(long)getAccumulatedPoints;
     -(void)setUserName:(NSString *)_username;
-    -(void)setAccumulatedPoints:(int)_accumulatedPoints;
+    -(void)setAccumulatedPoints:(long)_accumulatedPoints;
     -(void)showCompleteInfo;
 @end
 
@@ -71,17 +24,17 @@
     -(NSString *)getUserName {
         return userName;
     }
-    -(int)getAccumulatedPoints {
+    -(long)getAccumulatedPoints {
         return accumulatedPoints;
     }
     -(void)setUserName:(NSString *)_username {
         userName = _username;
     }
-    -(void)setAccumulatedPoints:(int)_accumulatedPoints {
+    -(void)setAccumulatedPoints:(long)_accumulatedPoints {
         accumulatedPoints = _accumulatedPoints;
     }
     -(void)showCompleteInfo {
-        NSLog(@"\n\nFirst Name = %@\nLast Name = %@\nAge = %d\nSex = %@,\nUsername = %@\nPassword = %@\nNumber of Points Accumulated = %d", fname, lname, age, sex, userName, password, accumulatedPoints);
+        NSLog(@"\n\nFirst Name = %@\nLast Name = %@\nAge = %@\nSex = %@,\nUsername = %@\nPassword = %@\nNumber of Points Accumulated = %ld", fname, lname, age, sex, userName, password, accumulatedPoints);
     }
 @end
 
@@ -121,11 +74,12 @@ int main(int argc, const char * argv[]) {
                 NSString *_lname = [NSString stringWithFormat:@"%s", lname];
                
                 //to clean the buffer before scanf int
-                while(getchar() != '\n');
+                //while(getchar() != '\n');
                 
-                int _age;
+                char age[10];
                 printf("\nEnter Age : ");
-                scanf("%d", &_age);
+                scanf("%s", age);
+                NSString *_age = [NSString stringWithFormat:@"%s", age];
                 
                 char sex[1];
                 printf("\nEnter Gender : ");
@@ -147,11 +101,11 @@ int main(int argc, const char * argv[]) {
                 scanf("%s", pass);
                 NSString *_pass = [NSString stringWithFormat:@"%s", pass];
 
-                int _points;
+                long _points;
                 BOOL ok_points = false;
                 do { // verifyng is Accumulated Points is between 0 and 1,000,000,000
                     printf("\nEnter Accumulated Points (0 - 1,000,000,000) : ");
-                    scanf("%d", &_points);
+                    scanf("%ld", &_points);
                     
                     if (_points >= 0 && _points <= 1000000000) {
                         ok_points = true;
