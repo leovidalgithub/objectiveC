@@ -31,10 +31,10 @@
     +(NSArray *)getFileContent:(NSString *)_fileName {
         NSFileManager *filemgr = [NSFileManager defaultManager];
         NSString *fullPath = [Utilities giveMeFullPath:_fileName];
-        if ([filemgr fileExistsAtPath: fullPath] == YES)
-                NSLog(@"\nFile exists")
-        else
-                NSLog(@"\nFile not found");
+        if ([filemgr fileExistsAtPath: fullPath] == NO) {
+                NSLog(@"\nSorry! But the file %@ was not found.\nMake sure this file is located in the same folder.", _fileName);
+                [[NSThread mainThread] exit];
+        }
         NSString *allContent = [NSString stringWithContentsOfFile:fullPath];
         NSArray *contentArray = [allContent componentsSeparatedByString:@"\n"];
         return contentArray;
@@ -58,7 +58,7 @@
         NSString *address;
         NSString *country;
     }
-    -(id)initWithfname:(NSString *)afname lname:(NSString *)alname;
+    -(id)initWithfname:(NSString *)_fname lname:(NSString *)_lname;
     -(NSString *)getFullName;
     @property NSString *fname;
     @property NSString *lname;
@@ -67,12 +67,12 @@
     @property NSString *country;
 @end
 @implementation Person
-    -(id)initWithfname:(NSString *)afname lname:(NSString *)alname{
+    -(id)initWithfname:(NSString *)_fname lname:(NSString *)_lname{
             self = [super init];
             if(self) {
-                self.fname = afname;
-                self.lname = alname;
-                self.fullName = [NSString stringWithFormat: @"%@ %@", afname, alname];
+                self.fname = _fname;
+                self.lname = _lname;
+                self.fullName = [NSString stringWithFormat: @"%@ %@", _fname, _lname];
             }
             return self;
     }
@@ -85,16 +85,35 @@
     @synthesize address;
     @synthesize country;
 @end
+/********** ********** CLASS RESERVATION ********** **********/
+@interface Reservation : NSObject {
+    @public
+        NSDate *date_init;
+        int days;
+        int roomNumber;
+    }
+    @property NSDate *date_init;
+    @property int days;
+    @property int roomNumber;
+@end
+@implementation Reservation
+    @synthesize date_init;
+    @synthesize days;
+    @synthesize roomNumber;
+@end
 /********** ********** CLASS CUSTOMER ********** **********/
 @interface Customer : Person {
     @public
         NSString *customerID;
+        Reservation *reservation;
     }
     @property NSString *customerID;
+    @property Reservation *reservation;
     -(void)showAllCustomerInfo;
 @end
 @implementation Customer
     @synthesize customerID;
+    @synthesize reservation;
     -(void)showAllCustomerInfo {
         [Utilities terminalPristine];
         NSLog(@"CustomerID = %@", customerID);
@@ -133,6 +152,26 @@
 /********** ********** ********** **********/
 int main(int argc, const char * argv[]) {
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+
+/* TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST */
+// Customer *cus = [[Customer alloc] init];
+// Reservation *res = [[Reservation alloc] init];
+// res.date_init = [NSDate date];
+// res.days = 23;
+// res.roomNumber = 2;
+// cus.reservation = res;
+// NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+// [dateFormatter setDateFormat:@"MMM-dd-yyyy"];
+// NSString *dateString = [dateFormatter stringFromDate:cus.reservation.date_init];
+// NSLog(@"DATE = %@ - %d - %d", dateString, cus.reservation.days, cus.reservation.roomNumber);
+
+
+// NSLog(@"FINISHING");
+// [pool drain];
+// return 0;
+/* TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST */
+
+
     // VARIABLES AND CONSTANTS
     NSString *const CUSTOMERS_DATA = @"customers.dat";
     NSString *const ROOMS_DATA     = @"rooms.dat";
@@ -173,14 +212,17 @@ int main(int argc, const char * argv[]) {
             NSLog(@"\n\n**** **** **** *** *** **** **** ****");
             NSLog(@"*** Welcome to Hotel Hobbies Menu ***");
             NSLog(@"**** **** **** *** *** **** **** ****");
-            NSLog(@"---------- Customers Admin ----------");
-            NSLog(@"1. Enter New Customer");
-            NSLog(@"2. List all Customers");
-            NSLog(@"3. Remove a Customer");
-            NSLog(@"------------ Rooms Admin ------------");
-            NSLog(@"4. List all Rooms");
-            NSLog(@"------------ ----------- ------------");
-            NSLog(@"5. Finish");
+            NSLog(@"------------ CUSTOMERS -----------");
+            NSLog(@"--- 1. Enter New Customer");
+            NSLog(@"--- 2. List all Customers");
+            NSLog(@"--- 3. Remove a Customer");
+            NSLog(@"--- ---------- ROOMS -------------");
+            NSLog(@"--- 4. List all Rooms");
+            NSLog(@"--- ------- RESERVATIONS ---------");
+            NSLog(@"--- 5. List all Reservations");
+            NSLog(@"--- --------- ---------- ---------");
+            NSLog(@"--- 6. Finish");
+            NSLog(@"--- --------- ---------- ---------");
             printf("\nEnter an Option : ");
             scanf("%d", &mainMenuOption);
 
@@ -320,7 +362,7 @@ int main(int argc, const char * argv[]) {
                     }
                 }
             }
-        } while (mainMenuOption != 5); // while opt is not equal 3 the Do While continues
+        } while (mainMenuOption != 6); // while opt is not equal 3 the Do While continues
 
 /********** STORING ALL DATA INTO PLAIN FILES BEFORE EXIT ********** ********** **********/
 /********** Storing Customers into Customers.dat ********** ********** **********/
@@ -336,7 +378,11 @@ int main(int argc, const char * argv[]) {
             [customerContent deleteCharactersInRange:NSMakeRange([customerContent length]-1, 1)]; // removing the last newLine '\n'
             [Utilities saveFileContent:CUSTOMERS_DATA :customerContent];
 
-        NSLog(@"program ends -------------------------");
+        // exit program
+        [Utilities clearScreen];
+        NSLog(@"------------------ -------------------- -------------------");
+        NSLog(@"--- Thanks for using Hotel Hobbies Managenment Program! ---");
+        NSLog(@"------------------ -------------------- -------------------");
         [pool drain];
         return 0;
 }
