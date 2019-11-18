@@ -14,7 +14,7 @@
 #import "customer.h"
 #import "room.h"
 
-// ---------------------- ---------------------- ---------------------- main ---------------------- ---------------------- /
+// ---------------------- ---------------------- ---------------------- main
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
 
@@ -51,7 +51,7 @@ int main(int argc, const char * argv[]) {
         [roomsObjArray addObject:room];
     }
     
-    // ------------------- ------------------- ------------------- CUSTOMER DO WHILE MENU ---------------- ---------------- ----------------
+    // ------------------- ------------------- ------------------- MAIN MENU ------------------- -------------------
     [Utilities clearScreen];
     int mainMenuOption = 0; // mainMenu variable for Do-While - user choice
     do {
@@ -59,7 +59,7 @@ int main(int argc, const char * argv[]) {
         NSLog(@"\t\t*** Welcome to Hotel Hobbies Menu ***");
         NSLog(@"\t\t**** **** **** *** *** **** **** ****\n");
         NSLog(@"\t\t------------ CUSTOMERS -----------");
-        NSLog(@"\t\t--- 1. Enter New Customer");
+        NSLog(@"\t\t--- 1. Create New Customer");
         NSLog(@"\t\t--- 2. List all Customers");
         NSLog(@"\t\t--- 3. Remove a Customer");
         NSLog(@"\t\t--- ---------- ROOMS -------------");
@@ -76,8 +76,8 @@ int main(int argc, const char * argv[]) {
         scanf("%d", &mainMenuOption);
         [Utilities clearScreen];
         
-        if (mainMenuOption == 1) {
-            NSLog(@"\n\n*** ENTERING A NEW CUSTOMER ***");
+        if (mainMenuOption == 1) { // OPTION 1 - CREATE A NEW CUSTOMER
+            NSLog(@"\n\n*** CREATING A NEW CUSTOMER ***");
             NSLog(@"-------------------------------");
             
             char customerID[10] = {0};
@@ -107,7 +107,7 @@ int main(int argc, const char * argv[]) {
             
             // After having introduced new Customer info, we verify if it is correcto to proceed to store into customersObjArray
             [Utilities clearScreen];
-            NSLog(@"\n\n*** ENTERING A NEW CUSTOMER ***");
+            NSLog(@"\n\n*** CREATING A NEW CUSTOMER ***");
             NSLog(@"-------------------------------\n");
             NSLog(@"CustomerID = %@", _customerID);
             NSLog(@"First Name = %@", _fname);
@@ -137,6 +137,7 @@ int main(int argc, const char * argv[]) {
                 NSLog(@"-------------------------------------------");
             }
             [Utilities pressAnyKey];
+            
         } else if(mainMenuOption == 2) { // OPTION 2 - LISTING CUSTOMERS
             NSLog(@"\n\n**** CUSTOMERS LISTING ****");
             NSLog(@"---------------------------");
@@ -155,12 +156,13 @@ int main(int argc, const char * argv[]) {
                 NSLog(@"\n\nSorry!\nThere is no Customers to show\nTry to add at least one Customer.")
             }
             [Utilities pressAnyKey];
+            
         } else if(mainMenuOption == 4) { // OPTION 4 - LISTING ROOMS
             NSLog(@"\n\n**** ROOMS LISTING ****");
             NSLog(@"-----------------------");
             if ([roomsObjArray count] > 0 ) {
                 NSLog(@"\nNumber of Rooms being displayed = %lu", (unsigned long)[roomsObjArray count]);
-                NSLog(@"-----------------------------------------");
+                NSLog(@"------------------------------------");
                 [NSThread sleepForTimeInterval:1];
                 
                 for (int i=0; i < [roomsObjArray count]; i++) {
@@ -169,9 +171,9 @@ int main(int argc, const char * argv[]) {
                     [[roomsObjArray objectAtIndex:i] showAllRoomsInfo];
                     NSLog(@"*****************************************");
                 }
-                NSLog(@"\n------------------------");
+                NSLog(@"\n--------------------");
                 NSLog(@"Rooms available = %d", [Room getRoomsAvailability:roomsObjArray]);
-                NSLog(@"------------------------");
+                NSLog(@"--------------------");
             } else {
                 NSLog(@"\n\nSorry!\nThere is no Rooms to display.")
             }
@@ -198,7 +200,7 @@ int main(int argc, const char * argv[]) {
             
         } else if(mainMenuOption == 3) { // OPTION 3 - REMOVE A CUSTOMER
             NSLog(@"\n\n*** REMOVE A CUSTOMER ***");
-            NSLog(@"----------------------------");
+            NSLog(@"-------------------------");
             char optionCustomerID[10] = {0};
             printf("\nEnter Customer ID : ");
             scanf("%s", optionCustomerID);
@@ -207,8 +209,10 @@ int main(int argc, const char * argv[]) {
             // if exists, get the Customer by its ID to be removed
             Customer *customerToRemove = [Customer getCustomerFromArray:_optionCustomerID :customersObjArray];
             if(customerToRemove) {
-                NSLog(@"-----------------------------------------");
-                NSLog(@"Do you really want to remove customer : %@", customerToRemove.fullName);
+                NSLog(@"-------------------------");
+                [customerToRemove showAllCustomerInfo];
+                NSLog(@"\n-------------------------------------------");
+                NSLog(@"Do you really want to remove this customer?");
                 NSLog(@"\n1. Yes");
                 NSLog(@"2. No");
                 printf("\nEnter an Option : ");
@@ -296,7 +300,6 @@ int main(int argc, const char * argv[]) {
                             newReservation.days = [NSString stringWithUTF8String:numberOfDays];
                         
                             customerToNewReservation.reservation = newReservation;
-                            
                             [Room setRoomReservation:roomsObjArray :customerToNewReservation.customerID :newReservation.roomNumber];
 
                             NSLog(@"\n  --------------------------------");
@@ -340,7 +343,7 @@ int main(int argc, const char * argv[]) {
     } while (mainMenuOption != 9); // main Do While (exit on mainMenuOption == 9 )
     
     // ------------------- ------------------- ------------------- STORING ALL DATA INTO PLAIN FILES BEFORE EXIT ------------------- -------------------
-    // ------------------- ------------------- Storing Customers into Customers.dat -------------------
+    // ------------------- ------------------- Storing Customers into Customers.dat
     NSMutableString *customerContent = [NSMutableString string];
     for (int i=0; i < [customersObjArray count]; i++) {
         NSString *temp = [NSString stringWithFormat:@"%@#%@#%@#%@#%@\n",[[customersObjArray objectAtIndex:i] customerID],
