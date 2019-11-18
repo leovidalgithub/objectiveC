@@ -41,8 +41,7 @@
         NSString *fullPath = [Utilities giveMeFullPath:_fileName];
         if ([filemgr fileExistsAtPath: fullPath] == NO) {
             NSLog(@"\nSorry! But the file %@ was not found.\nMake sure this file is located in the same folder.", _fileName);
-            exit(0); // for mac
-            //[[NSThread mainThread] exit]; // for Windows GCC
+            exit(0);
         }
         NSError *error = nil;
         NSString *allContent = [NSString stringWithContentsOfFile:fullPath encoding:NSUTF8StringEncoding error:&error];

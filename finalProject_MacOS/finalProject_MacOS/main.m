@@ -2,6 +2,7 @@
  Objective-C Final Project - MacOS SIERRA HIGH 10.13.6 for Xcode 9.4.1
  Created by Leonardo Rodriguez-Vidal 1811229 on Nov 8th 2019
  
+ /Users/leonardo/Desktop/work/objectiveC/finalProject_MacOS/DerivedData/finalProject_MacOS/Build/Products/Debug
  https://isipinoytek.wordpress.com/2018/06/07/mac-os-x-high-sierra-10-13-vm-in-vmware-workstation-14/
  */
 
@@ -17,37 +18,18 @@
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
 
-/* TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST */
-//    Customer *cus = [[Customer alloc] init];
-//    Reservation *res = [[Reservation alloc] init];
-//    res.date_init = [NSDate date];
-//    res.days = 23;
-//    res.roomNumber = 2;
-//    cus.reservation = res;
-//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-//    [dateFormatter setDateFormat:@"MMM-dd-yyyy"];
-//    NSString *dateString = [dateFormatter stringFromDate:cus.reservation.date_init];
-//    NSLog(@"DATE === %@ - %d - %d", dateString, cus.reservation.days, cus.reservation.roomNumber);
-//    NSLog(@"random... %@", [Utilities getRandomStringCode:13]);
-//    NSLog(@"test ends here...");
-//    return 0;
-/* TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST */
-    
-    
     // VARIABLES AND CONSTANTS
     NSString *const CUSTOMERS_DATA = @"customers.dat";
     NSString *const ROOMS_DATA     = @"rooms.dat";
     int const ROOMS_SIZE           = 5;
     Customer *customer;
     Room *room;
-    NSMutableArray *customersObjArray    = [[NSMutableArray alloc]initWithCapacity:1]; // dynamic size
-    NSMutableArray *roomsObjArray        = [[NSMutableArray alloc]initWithCapacity:ROOMS_SIZE]; // fixed size
-    NSMutableArray *customersWaitingList = [[NSMutableArray alloc]initWithCapacity:1]; // dynamic size to store CustomerIDs
+    NSMutableArray *customersObjArray         = [[NSMutableArray alloc]initWithCapacity:1]; // dynamic size
+    NSMutableArray *roomsObjArray             = [[NSMutableArray alloc]initWithCapacity:ROOMS_SIZE]; // fixed size
+    NSMutableArray *customersWaitingListArray = [[NSMutableArray alloc]initWithCapacity:1]; // dynamic size to store CustomerIDs
     
-    [Utilities clearScreen];
-    
-    // ********** ********** ********** GETTING ALL STORED DATA ********** ********** **********
-    // ********** Retrieving all Customers data
+    // ------------------- ------------------- ------------------- GETTING ALL STORED DATA ------------------- -------------------
+    // ------------------- ------------------- Retrieving all Customers data
     NSArray *customersTempArray = [Utilities getFileContent:CUSTOMERS_DATA];
     for (int i=0; i < [customersTempArray count]; i++) {
         NSArray *customerItem = [[customersTempArray objectAtIndex:i] componentsSeparatedByString:@"#"];
@@ -57,7 +39,7 @@ int main(int argc, const char * argv[]) {
         customer.country      = [customerItem objectAtIndex:4];
         [customersObjArray addObject:customer];
     }
-    // ********** Retrieving all Rooms data
+    // ------------------- ------------------- Retrieving all Rooms data
     NSArray *roomsTempArray = [Utilities getFileContent:ROOMS_DATA];
     for (int i=0; i < [roomsTempArray count]; i++) {
         NSArray *roomItem = [[roomsTempArray objectAtIndex:i] componentsSeparatedByString:@"#"];
@@ -69,20 +51,9 @@ int main(int argc, const char * argv[]) {
         [roomsObjArray addObject:room];
     }
     
-//        NSMutableArray *roomsAvailable = [Room showRoomsAvailable:roomsObjArray];
-//        for (NSString *obj in roomsAvailable) {
-//            NSLog(@"--- %@", obj);
-//        }
-//        NSString *roomNumber = @"4";
-//        if ([roomsAvailable indexOfObject:roomNumber] == NSNotFound) {
-//            NSLog(@" == NSNOTFOUND");
-//        } else {
-//            NSLog(@" != NSNOTFOUND");
-//        }
-//        return 0;
-        
     // ------------------- ------------------- ------------------- CUSTOMER DO WHILE MENU ---------------- ---------------- ----------------
-    int mainMenuOption = 0; // variable which store user choice
+    [Utilities clearScreen];
+    int mainMenuOption = 0; // mainMenu variable for Do-While - user choice
     do {
         NSLog(@"\t\t**** **** **** *** *** **** **** ****");
         NSLog(@"\t\t*** Welcome to Hotel Hobbies Menu ***");
@@ -96,6 +67,8 @@ int main(int argc, const char * argv[]) {
         NSLog(@"\t\t--- ------- RESERVATIONS ---------");
         NSLog(@"\t\t--- 5. List all Reservations");
         NSLog(@"\t\t--- 6. Make a New Reservation");
+        NSLog(@"\t\t--- ------- WAITING LIST ---------");
+        NSLog(@"\t\t--- 7. List Customers Waiting List");
         NSLog(@"\t\t--- --------- ---------- ---------");
         NSLog(@"\t\t--- 9. Finish");
         NSLog(@"\t\t--- --------- ---------- ---------");
@@ -132,7 +105,7 @@ int main(int argc, const char * argv[]) {
             scanf("%s", country);
             NSString *_country = [NSString stringWithUTF8String:country];
             
-            // MAKING SURE THAT THE INFO ENTERED ARE CORRECTO TO PROCEED TO ADD INTO CUSTOMERSOBJARRAY
+            // After having introduced new Customer info, we verify if it is correcto to proceed to store into customersObjArray
             [Utilities clearScreen];
             NSLog(@"\n\n*** ENTERING A NEW CUSTOMER ***");
             NSLog(@"-------------------------------\n");
@@ -164,10 +137,9 @@ int main(int argc, const char * argv[]) {
                 NSLog(@"-------------------------------------------");
             }
             [Utilities pressAnyKey];
-        } else if(mainMenuOption == 2) {
-            // LISTING CUSTOMERS
+        } else if(mainMenuOption == 2) { // OPTION 2 - LISTING CUSTOMERS
             NSLog(@"\n\n**** CUSTOMERS LISTING ****");
-            NSLog(@"--------------------------------");
+            NSLog(@"---------------------------");
             if ([customersObjArray count] > 0 ) {
                 NSLog(@"\nNumber of Customers being displayed = %lu", (unsigned long)[customersObjArray count]);
                 NSLog(@"-----------------------------------------");
@@ -183,10 +155,9 @@ int main(int argc, const char * argv[]) {
                 NSLog(@"\n\nSorry!\nThere is no Customers to show\nTry to add at least one Customer.")
             }
             [Utilities pressAnyKey];
-        } else if(mainMenuOption == 4) {
-            // LISTING ROOMS
+        } else if(mainMenuOption == 4) { // OPTION 4 - LISTING ROOMS
             NSLog(@"\n\n**** ROOMS LISTING ****");
-            NSLog(@"----------------------------");
+            NSLog(@"-----------------------");
             if ([roomsObjArray count] > 0 ) {
                 NSLog(@"\nNumber of Rooms being displayed = %lu", (unsigned long)[roomsObjArray count]);
                 NSLog(@"-----------------------------------------");
@@ -205,6 +176,26 @@ int main(int argc, const char * argv[]) {
                 NSLog(@"\n\nSorry!\nThere is no Rooms to display.")
             }
             [Utilities pressAnyKey];
+            
+        } else if(mainMenuOption == 5) { // OPTION 5 - LISTING RESERVATIONS
+            NSLog(@"\n\n**** RESERVATIONS LISTING ****");
+            NSLog(@"------------------------------\n");
+            
+            int numberOfReservations = 0;
+            for (Customer *customer in customersObjArray) {
+                if (customer.reservation) {
+                    numberOfReservations++;
+                    NSLog(@"--------------- --------------- --------------");
+                    NSLog(@"RESERVATION = #%d", numberOfReservations);
+                    [customer showAllCustomerInfo];
+                    NSLog(@"--------------- --------------- --------------\n");
+                }
+            }
+            NSLog(@"\n--------------------------------------");
+            NSLog(@"Current Reservations at this time = %d", numberOfReservations);
+            NSLog(@"--------------------------------------");
+            [Utilities pressAnyKey];
+            
         } else if(mainMenuOption == 3) { // OPTION 3 - REMOVE A CUSTOMER
             NSLog(@"\n\n*** REMOVE A CUSTOMER ***");
             NSLog(@"----------------------------");
@@ -236,6 +227,28 @@ int main(int argc, const char * argv[]) {
                 }
             }
             [Utilities pressAnyKey];
+            
+        } else if(mainMenuOption == 7) { // OPTION 7 - CUSTOMERS WAITING LIST LISTING
+            NSLog(@"\n\n**** WAITING LIST LISTING ****");
+            NSLog(@"------------------------------");
+            if ([customersWaitingListArray count] > 0 ) {
+                NSLog(@"\nNumber of Customers in Waiting List = %lu", (unsigned long)[customersWaitingListArray count]);
+                NSLog(@"----------------------------------------");
+                [NSThread sleepForTimeInterval:1];
+                
+                for (NSString *customerID in customersWaitingListArray) {
+                    Customer *customer = [Customer getCustomerFromArray:customerID :customersObjArray];
+                    NSLog(@"--------------- ---------------");
+                    [customer showAllCustomerInfo];
+                    NSLog(@"--------------- ---------------\n");
+                }
+            } else { // Waiting list empty
+                NSLog(@"\n---------------------");
+                NSLog(@"Waiting List is Empty");
+                NSLog(@"---------------------");
+            }
+            [Utilities pressAnyKey];
+            
         } else if(mainMenuOption == 6) { // OPTION 6 - MAKE A NEW RESERVATION
             [Utilities clearScreen];
             
@@ -310,8 +323,8 @@ int main(int argc, const char * argv[]) {
                     int option = 0;
                     scanf("%d", &option);
                     if(option == 1) {
-                        if ([customersWaitingList indexOfObject:customerToNewReservation.customerID] == NSNotFound) // veryfing if already exist / otherwise, it is added into the WaitingListArray
-                            [customersWaitingList addObject:customerToNewReservation.customerID];
+                        if ([customersWaitingListArray indexOfObject:customerToNewReservation.customerID] == NSNotFound) // veryfing if already exist / otherwise, it is added into the WaitingListArray
+                            [customersWaitingListArray addObject:customerToNewReservation.customerID];
                         NSLog(@"\n-----------------------------------------------------------------");
                         NSLog(@"Customer %@ added corretly to the Waiting List!", customerToNewReservation.fullName);
                         NSLog(@"-----------------------------------------------------------------");
@@ -326,8 +339,8 @@ int main(int argc, const char * argv[]) {
         }
     } while (mainMenuOption != 9); // main Do While (exit on mainMenuOption == 9 )
     
-    /********** STORING ALL DATA INTO PLAIN FILES BEFORE EXIT ********** ********** **********/
-    /********** Storing Customers into Customers.dat          ********** ********** **********/
+    // ------------------- ------------------- ------------------- STORING ALL DATA INTO PLAIN FILES BEFORE EXIT ------------------- -------------------
+    // ------------------- ------------------- Storing Customers into Customers.dat -------------------
     NSMutableString *customerContent = [NSMutableString string];
     for (int i=0; i < [customersObjArray count]; i++) {
         NSString *temp = [NSString stringWithFormat:@"%@#%@#%@#%@#%@\n",[[customersObjArray objectAtIndex:i] customerID],
@@ -345,38 +358,7 @@ int main(int argc, const char * argv[]) {
     NSLog(@"------------------ -------------------- -------------------");
     NSLog(@"--- Thanks for using Hotel Hobbies Managenment Program! ---");
     NSLog(@"------------------ -------------------- -------------------");
-//    [pool drain];
+
     }
     return 0;
 }
-/*
- class Person
- 
- class Customer inh Person
- class Employer inh Person
- 
- class Reservation
- 
- list array Employees[5]
- list array Customers[50]
- list array Reservations[5]
- list array waitingList[50]
- 
- 
- 
- */
-// /********** ********** SECUENCIAL WRITE FILE ********** **********/
-// [[NSFileManager defaultManager] createFileAtPath:@"C:/GNUstep/msys/1.0/home/leone/data.txt" contents:nil attributes:nil];
-// NSString *str = @"Description#Data#IMG#4#76#1#54";
-// [str writeToFile:@"C:/GNUstep/msys/1.0/home/leone/data.txt" atomically:YES encoding:NSUTF8StringEncoding error:nil];
-/********** ********** ********** **********/
-/*
- Customer *myCustomer = [[Customer alloc] init];
- myCustomer = [customersObjArray objectAtIndex:2];
- NSLog(@"%d",[customersObjArray count]);
- NSLog(@"%@",myCustomer.fname);
- NSLog(@"%@",myCustomer.address);
- NSLog(@"%@",myCustomer.country);
- NSLog(@"-------------------------");
- */
-
