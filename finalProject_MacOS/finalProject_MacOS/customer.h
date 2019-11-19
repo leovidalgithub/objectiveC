@@ -44,8 +44,9 @@
             if([customer.customerID isEqualToString:_customerID])
                 return customer;
         }
-        NSLog(@"\n----------------------------");
-        NSLog(@"Customer ID %@ not exist!", _customerID);
+        NSLog(@"\n---------------------------------");
+        NSLog(@"Sorry! Customer ID %@ not exist!", _customerID);
+        NSLog(@"---------------------------------");
         return nil;
     }
 @end

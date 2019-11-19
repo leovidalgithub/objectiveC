@@ -12,6 +12,7 @@
 @interface Utilities : NSObject
     +(void)clearScreen;
     +(void)terminalPristine;
+    +(void)displayTitle:(NSString *)_charStyle :(NSString *)_title :(BOOL)_useTabs;
     +(NSString *)giveMeFullPath:(NSString *)_fileName;
     +(NSArray *)getFileContent:(NSString *)_fileName;
     +(void)saveFileContent:(NSString *)_fileName :(NSString *)_content;
@@ -31,6 +32,15 @@
             NSLog(@"\n");
             [NSThread sleepForTimeInterval:.01];
         }
+    }
+    +(void)displayTitle:(NSString *)_charStyle :(NSString *)_title :(BOOL)_useTabs {
+        NSString *tabs = _useTabs ? @"\t\t" : @"";
+        NSString *tripleCharStyle = [@"" stringByPaddingToLength:3 withString:_charStyle startingAtIndex:0];
+        NSString *titleStyled     = [NSString stringWithFormat:@"%@ %@ %@", tripleCharStyle, _title, tripleCharStyle];
+        NSString *completeLine    = [@"" stringByPaddingToLength:[titleStyled length] withString:_charStyle startingAtIndex:0];
+        NSLog(@"\n%@%@", tabs, completeLine);
+        NSLog(@"%@%@", tabs, titleStyled);
+        NSLog(@"%@%@\n", tabs, completeLine);
     }
     +(NSString *)giveMeFullPath:(NSString *)_fileName {
         NSFileManager *filemgr = [NSFileManager defaultManager];
@@ -57,9 +67,9 @@
         [_objectArray removeObject:_obj];
     }
     +(void)pressAnyKey {
-        NSLog(@"\n\n---------- ----------- ----------");
-        NSLog(@"Press <ENTER> key to continue ...");
-        NSLog(@"---------- ----------- ----------");
+        NSLog(@"\n\t\t\t---------- ----------- ----------");
+        NSLog(@"\t\t\tPress <ENTER> key to continue ...");
+        NSLog(@"\t\t\t---------- ----------- ----------");
         getchar(); // wait for ENTER
         getchar(); // wait for ENTER
         [Utilities clearScreen];
