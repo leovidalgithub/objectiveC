@@ -18,6 +18,7 @@
     @property Reservation *reservation;
     -(void)showAllCustomerInfo;
     +(Customer*)getCustomerFromArray:(NSString *)_customerID :(NSMutableArray *)_customersArray;
+    -(BOOL)customerHasReservation;
 @end
 
 @implementation Customer
@@ -44,11 +45,18 @@
             if([customer.customerID isEqualToString:_customerID])
                 return customer;
         }
-        NSLog(@"\n---------------------------------");
-        NSLog(@"Sorry! Customer ID %@ not exist!", _customerID);
-        NSLog(@"---------------------------------");
+        [Utilities displayTitle:@"-" :[NSString stringWithFormat:@"Sorry! Customer ID %@ not exist!", _customerID] :NO];
         return nil;
+    }
+    -(BOOL)customerHasReservation {
+        if (reservation) {
+            [Utilities displayTitle:@"-" :[NSString stringWithFormat:@"Sorry! Customer %@ has already a Reservation # : %@", fullName, reservation.resID] :NO];
+            return YES;
+        }
+        return NO;
     }
 @end
 
+            
+            
 #endif /* customer_h */

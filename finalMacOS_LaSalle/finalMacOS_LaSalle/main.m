@@ -261,7 +261,7 @@ int main(int argc, const char * argv[]) {
                 
                 // if exists, get the Customer by its ID to be removed
                 Customer *customerToNewReservation = [Customer getCustomerFromArray:_optionCustomerID :customersObjArray];
-                if(customerToNewReservation) {
+                if(customerToNewReservation && ![customerToNewReservation customerHasReservation]) { // if Customer exists and has NOT a Reservation
                     NSLog(@"         Fullname : %@", customerToNewReservation.fullName);
                     NSLog(@"-----------------------------------------");
                     

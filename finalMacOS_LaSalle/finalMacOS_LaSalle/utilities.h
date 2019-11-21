@@ -24,7 +24,7 @@
 
 @implementation Utilities
     +(void)terminalPristine {
-    //this is to reduce info lines output in the Terminal
+    //this is to reduce info line output in the Terminal
     #define NSLog(STRING, ...) printf("%s\n", [[NSString stringWithFormat:STRING, ##__VA_ARGS__] UTF8String]);
     }
     +(void)clearScreen {
