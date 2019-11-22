@@ -261,7 +261,7 @@ int main(int argc, const char * argv[]) {
                 
                 // if exists, get the Customer by its ID to be removed
                 Customer *customerToNewReservation = [Customer getCustomerFromArray:_optionCustomerID :customersObjArray];
-                if(customerToNewReservation) {
+                if(customerToNewReservation && ![customerToNewReservation customerHasReservation]) { // if Customer exists and has NOT a Reservation
                     NSLog(@"         Fullname : %@", customerToNewReservation.fullName);
                     NSLog(@"-----------------------------------------");
                     
@@ -280,17 +280,21 @@ int main(int argc, const char * argv[]) {
                             
                             if ([roomsAvailable indexOfObject:_roomNumber] != NSNotFound) { // roomNumber correct and available
                                 newReservation.roomNumber = _roomNumber;
-
+                                
                                 NSLog(@"------------------------");
                                 char numberOfDays[5] = {0};
                                 printf("\nEnter Number of Days : ");
                                 scanf("%s", numberOfDays);
-                                newReservation.days = [NSString stringWithUTF8String:numberOfDays];
-                            
+                                
+                                [Utilities clearScreen];
+                                [Utilities displayTitle:@"+" :@"New Reservation created" :YES];
+                                NSLog(@"----------------------------------------------");
+
+                                newReservation.days = [NSString stringWithUTF8String:numberOfDays]; // using this setter, 'date_ends' is calculated and assigned automatically
                                 customerToNewReservation.reservation = newReservation;
                                 [Room setRoomReservation:roomsObjArray :customerToNewReservation.customerID :newReservation.roomNumber];
-
-                                [Utilities displayTitle:@"-" :@"Reservation stored succsesfully!" :NO];
+                                [customerToNewReservation showAllCustomerInfo];
+                                NSLog(@"----------------------------------------------");
                             } else { // roomNumber introduced is not correct or not available
                                 NSLog(@"\n--------------------------------------");
                                 NSLog(@"Sorry! Room introduced is not correct!");
@@ -341,7 +345,8 @@ int main(int argc, const char * argv[]) {
         
         // exit program
         [Utilities clearScreen];
-        [Utilities displayTitle:@"&" :@"Thanks for using Hotel Hobbies Managenment Program!" :YES];
+        [Utilities displayTitle:@"+" :@"Thanks for using Hotel Hobbies Managenment Program!" :YES];
     }
     return 0;
 }
+
