@@ -51,7 +51,7 @@
     }
     -(BOOL)customerHasReservation {
         if (reservation) {
-            [Utilities displayTitle:@"-" :[NSString stringWithFormat:@"Sorry! Customer %@ has already a Reservation # : %@", fullName, reservation.resID] :NO];
+            [Utilities displayTitle:@"-" :[NSString stringWithFormat:@"Sorry! Customer %@ has already a Reservation : %@", fullName, reservation.resID] :NO];
             return YES;
         }
         return NO;
