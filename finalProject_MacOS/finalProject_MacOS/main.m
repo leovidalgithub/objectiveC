@@ -18,10 +18,6 @@
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         
-//        NSString *result = array[0] ? array[0] : @"NO HAY!";
-//        NSLog(@"\n%@", result);
-//        return 0;
-        
         // GLOBAL VARIABLES AND CONSTANTS
         Customer *customer;
         Room *room;
