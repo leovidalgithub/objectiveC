@@ -24,7 +24,7 @@
 
 @implementation Utilities
     +(void)terminalPristine {
-    //this is to reduce info line output in the Terminal
+        //this is to reduce info line output in the Terminal
     #define NSLog(STRING, ...) printf("%s\n", [[NSString stringWithFormat:STRING, ##__VA_ARGS__] UTF8String]);
     }
     +(void)clearScreen {
@@ -50,7 +50,8 @@
         NSFileManager *filemgr = [NSFileManager defaultManager];
         NSString *fullPath = [Utilities giveMeFullPath:_fileName];
         if ([filemgr fileExistsAtPath: fullPath] == NO) {
-            NSLog(@"\nSorry! But the file %@ was not found.\nMake sure this file is located in the same folder.", _fileName);
+            [Utilities displayTitle:@"+" :_fileName :YES];
+            NSLog(@"\nSorry! But that file could not be found.\nMake sure this file is located on DeriveData folder according to the Project instructions.\n\n");
             exit(0);
         }
         NSError *error = nil;
