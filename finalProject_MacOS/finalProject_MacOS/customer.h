@@ -40,6 +40,7 @@
             NSLog(@"\t\t   Extra Service = %@", reservation.extraService);
         } else {
             NSLog(@"RESERVATION = NO");
+            NSLog(@"someString : %@ %ld", someString, (long)someInteger++);
         }
     }
     +(Customer*)getCustomerFromArray:(NSString *)_customerID :(NSMutableArray *)_customersArray {

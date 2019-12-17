@@ -8,6 +8,8 @@
 
 #ifndef utilities_h
 #define utilities_h
+extern NSString *someString;
+extern NSInteger someInteger;
 
 @interface Utilities : NSObject
     +(void)clearScreen;
@@ -23,6 +25,8 @@
 @end
 
 @implementation Utilities
+    NSString *someString = @"MARICON";
+    NSInteger someInteger = 123;
     +(void)terminalPristine {
         //this is to reduce info line output in the Terminal
     #define NSLog(STRING, ...) printf("%s\n", [[NSString stringWithFormat:STRING, ##__VA_ARGS__] UTF8String]);

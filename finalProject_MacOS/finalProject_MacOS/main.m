@@ -17,14 +17,14 @@
 // ---------------------- ---------------------- ---------------------- main
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
-        
+
         // GLOBAL VARIABLES AND CONSTANTS
         Customer *customer;
         Room *room;
         NSString *const CUSTOMERS_DATA = @"customers.dat";
         NSString *const ROOMS_DATA     = @"rooms.dat";
-        int const ROOMS_SIZE           = 5;
-        NSArray *extraServicesArray    = @[@"Sauna", @"Gym", @"Fitness Center", @"Meditation", @"Jacuzzi",@"None"];
+        NSInteger const ROOMS_SIZE     = 5;
+        NSArray *extraServicesArray    = @[@"Sauna", @"Gym", @"Fitness Center", @"Meditation", @"Jacuzzi", @"None"];
         NSMutableArray *customersObjArray         = [[NSMutableArray alloc]initWithCapacity:1]; // dynamic size
         NSMutableArray *roomsObjArray             = [[NSMutableArray alloc]initWithCapacity:ROOMS_SIZE]; // fixed size
         NSMutableArray *customersWaitingListArray = [[NSMutableArray alloc]initWithCapacity:1]; // dynamic size to store CustomerIDs
@@ -34,6 +34,7 @@ int main(int argc, const char * argv[]) {
         NSArray *customersTempArray = [Utilities getFileContent:CUSTOMERS_DATA];
         for (int i=0; i < [customersTempArray count]; i++) {
             NSArray *customerItem = [[customersTempArray objectAtIndex:i] componentsSeparatedByString:@"#"];
+            Customer *customer;
             customer              = [[Customer alloc] initWithfname:[customerItem objectAtIndex:1] lname:[customerItem objectAtIndex:2]]; // Customer custom Constructor
             customer.customerID   = [customerItem objectAtIndex:0];
             customer.address      = [customerItem objectAtIndex:3];
