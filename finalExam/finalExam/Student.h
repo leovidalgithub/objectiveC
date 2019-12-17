@@ -12,10 +12,14 @@
 
 @interface Student : Person {
     @public
-        NSString *studentID;
+        NSString *stud_id;
+        NSString *email;
+        NSString *password;
         Grade *grades;
     }
-    @property NSString *studentID;
+    @property NSString *stud_id;
+    @property NSString *email;
+    @property NSString *password;
     @property Grade *grades;
     -(void)showAllStudentInfo;
 //    +(Customer*)getCustomerFromArray:(NSString *)_studentID :(NSMutableArray *)_customersArray;
@@ -23,15 +27,19 @@
 @end
 
 @implementation Student
-    @synthesize studentID;
+    @synthesize stud_id;
+    @synthesize email;
+    @synthesize password;
     @synthesize grades;
     -(void)showAllStudentInfo {
         [Utilities terminalPristine];
         NSLog(@" ----- STUDENT INFO -----");
-        NSLog(@" Student ID = %@", studentID);
+        NSLog(@" Student ID = %@", stud_id);
         NSLog(@"  Full Name = %@", fullName);
         NSLog(@"     Gender = %@", gender);
         NSLog(@"        Age = %@", [@(age) stringValue]);
+        NSLog(@"      email = %@", email);
+        NSLog(@"   Password = %@", password);
         NSLog(@"-------------------------");
         [grades showGrades];
     }

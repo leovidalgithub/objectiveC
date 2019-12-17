@@ -27,6 +27,8 @@
 		A712292E23A8725D00FB2E9D /* Teacher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Teacher.h; sourceTree = "<group>"; };
 		A712292F23A8747300FB2E9D /* Course.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Course.h; sourceTree = "<group>"; };
 		A712293023A878EF00FB2E9D /* Grade.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Grade.h; sourceTree = "<group>"; };
+		A757D67623A9601B0012073F /* output */ = {isa = PBXFileReference; lastKnownFileType = text; path = output; sourceTree = "<group>"; };
+		A757D67723A979EE0012073F /* notes */ = {isa = PBXFileReference; lastKnownFileType = text; path = notes; sourceTree = "<group>"; };
 		A78F5B8123A864EA00D253A4 /* finalExam */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = finalExam; sourceTree = BUILT_PRODUCTS_DIR; };
 		A78F5B8423A864EA00D253A4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A78F5B8B23A865B500D253A4 /* Person.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
@@ -70,6 +72,8 @@
 				A712292E23A8725D00FB2E9D /* Teacher.h */,
 				A712292F23A8747300FB2E9D /* Course.h */,
 				A712293023A878EF00FB2E9D /* Grade.h */,
+				A757D67623A9601B0012073F /* output */,
+				A757D67723A979EE0012073F /* notes */,
 			);
 			path = finalExam;
 			sourceTree = "<group>";

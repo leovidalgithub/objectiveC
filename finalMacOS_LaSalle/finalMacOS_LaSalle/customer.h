@@ -33,9 +33,11 @@
         if (reservation) {
             NSLog(@"-------------- RESERVATION INFO --------------");
             NSLog(@"\t\tReservation ID   = %@", reservation.resID);
-            NSLog(@"\t\tReservation Date = %@", [Utilities getDateFormatter:reservation.date_init]);
+            NSLog(@"\t\t     Date Starts = %@", [Utilities getDateFormatter:reservation.date_init]);
+            NSLog(@"\t\t       Date Ends = %@", [Utilities getDateFormatter:reservation.date_ends]);
             NSLog(@"\t\t    Days of Stay = %@", reservation.days);
             NSLog(@"\t\t   Room Reserved = %@", reservation.roomNumber);
+            NSLog(@"\t\t   Extra Service = %@", reservation.extraService);
         } else {
             NSLog(@"RESERVATION = NO");
         }
@@ -50,7 +52,7 @@
     }
     -(BOOL)customerHasReservation {
         if (reservation) {
-            [Utilities displayTitle:@"-" :[NSString stringWithFormat:@"Sorry! Customer %@ has already a Reservation # : %@", fullName, reservation.resID] :NO];
+            [Utilities displayTitle:@"-" :[NSString stringWithFormat:@"Sorry! Customer %@ has already a Reservation : %@", fullName, reservation.resID] :NO];
             return YES;
         }
         return NO;

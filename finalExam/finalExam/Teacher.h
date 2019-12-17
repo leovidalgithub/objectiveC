@@ -10,20 +10,22 @@
 
 @interface Teacher : Person {
     @public
-        NSString *teacherID;
+        NSString *teach_id;
     }
-    @property NSString *teacherID;
+    @property NSString *teach_id;
         -(void)showAllTeacherInfo;
 @end
 
 @implementation Teacher
-    @synthesize teacherID;
+    @synthesize teach_id;
     -(void)showAllTeacherInfo {
         [Utilities terminalPristine];
-        NSLog(@" Teacher ID = %@", teacherID);
+        NSLog(@" ----- TEACHER INFO -----");
+        NSLog(@" Teacher ID = %@", teach_id);
         NSLog(@"  Full Name = %@", fullName);
         NSLog(@"     Gender = %@", gender);
         NSLog(@"        Age = %@", [@(age) stringValue]);
+        NSLog(@"-------------------------");
     }
 @end
 

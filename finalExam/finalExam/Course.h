@@ -10,30 +10,31 @@
 
 @interface Course : NSObject {
     @public
-        NSString *c_code;
-        NSString *c_name;
-        NSInteger h_per_week;
+        NSString *course_code;
+        NSString *course_name;
+        int number_students;
         Teacher *teacher;
     }
-    @property NSString *c_code;
-    @property NSString *c_name;
-    @property NSInteger h_per_week;
+    @property NSString *course_code;
+    @property NSString *course_name;
+    @property int number_students;
     @property Teacher *teacher;
     -(void)showAllCourseInfo;
 @end
 
 @implementation Course
-    @synthesize c_code;
-    @synthesize c_name;
-    @synthesize h_per_week;
+    @synthesize course_code;
+    @synthesize course_name;
+    @synthesize number_students;
     @synthesize teacher;
     -(void)showAllCourseInfo {
         [Utilities terminalPristine];
-        NSLog(@"    Course Code = %@", c_code);
-        NSLog(@"           Name = %@", c_name);
-        NSLog(@" Hours per week = %@", [@(h_per_week) stringValue]);
-        NSLog(@"Assigned Teacher");
-        NSLog(@"----------------");
+        NSLog(@"        Course Code = %@", course_code);
+        NSLog(@"        Course Name = %@", course_name);
+        NSLog(@" Number of Students = %@", [@(number_students) stringValue]);
+        NSLog(@"-----------------------------");
+        NSLog(@" Assigned Teacher");
+        NSLog(@"-----------------------------");
         [teacher showAllTeacherInfo];
     }
 @end

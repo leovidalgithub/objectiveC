@@ -19,11 +19,12 @@ int main(int argc, const char * argv[]) {
     @autoreleasepool {
         
         // GLOBAL VARIABLES AND CONSTANTS
+        Customer *customer;
+        Room *room;
         NSString *const CUSTOMERS_DATA = @"customers.dat";
         NSString *const ROOMS_DATA     = @"rooms.dat";
         int const ROOMS_SIZE           = 5;
-        Customer *customer;
-        Room *room;
+        NSArray *extraServicesArray    = @[@"Sauna", @"Gym", @"Fitness Center", @"Meditation", @"Jacuzzi",@"None"];
         NSMutableArray *customersObjArray         = [[NSMutableArray alloc]initWithCapacity:1]; // dynamic size
         NSMutableArray *roomsObjArray             = [[NSMutableArray alloc]initWithCapacity:ROOMS_SIZE]; // fixed size
         NSMutableArray *customersWaitingListArray = [[NSMutableArray alloc]initWithCapacity:1]; // dynamic size to store CustomerIDs
@@ -281,16 +282,35 @@ int main(int argc, const char * argv[]) {
                             if ([roomsAvailable indexOfObject:_roomNumber] != NSNotFound) { // roomNumber correct and available
                                 newReservation.roomNumber = _roomNumber;
                                 
-                                NSLog(@"------------------------");
+                                // NUMBER OF DAYS
+                                NSLog(@"-------------------------");
                                 char numberOfDays[5] = {0};
                                 printf("\nEnter Number of Days : ");
                                 scanf("%s", numberOfDays);
-                                newReservation.days = [NSString stringWithUTF8String:numberOfDays];
-                                
+
+                                // EXTRA SERVICES
+                                NSLog(@"-------------------------");
+                                NSLog(@"\nExtra Services");
+                                for (int i=0; i < [extraServicesArray count]; i++) {
+                                    NSLog(@"\t\t%d. %@", i + 1, extraServicesArray[i]);
+                                }
+                                printf("\nChoose an Extra Service : ");
+                                fflush(stdin);
+                                int extraServiceOption = -1;
+                                scanf("%d", &extraServiceOption);
+                                extraServiceOption--;
+                                if (extraServiceOption >= 0 && extraServiceOption <= [extraServicesArray count]) // otherwise, it would have the default value from Constructor 'N/A'
+                                    newReservation.extraService = extraServicesArray[extraServiceOption];
+
+                                [Utilities clearScreen];
+                                [Utilities displayTitle:@"+" :@"New Reservation created" :YES];
+                                NSLog(@"----------------------------------------------");
+
+                                newReservation.days = [NSString stringWithUTF8String:numberOfDays]; // using this setter, 'date_ends' is calculated and assigned automatically
                                 customerToNewReservation.reservation = newReservation;
                                 [Room setRoomReservation:roomsObjArray :customerToNewReservation.customerID :newReservation.roomNumber];
-                                
-                                [Utilities displayTitle:@"-" :@"Reservation stored succsesfully!" :NO];
+                                [customerToNewReservation showAllCustomerInfo];
+                                NSLog(@"----------------------------------------------");
                             } else { // roomNumber introduced is not correct or not available
                                 NSLog(@"\n--------------------------------------");
                                 NSLog(@"Sorry! Room introduced is not correct!");
@@ -341,7 +361,7 @@ int main(int argc, const char * argv[]) {
         
         // exit program
         [Utilities clearScreen];
-        [Utilities displayTitle:@"&" :@"Thanks for using Hotel Hobbies Managenment Program!" :YES];
+        [Utilities displayTitle:@"+" :@"Thanks for using Hotel Hobbies Managenment Program!" :YES];
     }
     return 0;
 }
