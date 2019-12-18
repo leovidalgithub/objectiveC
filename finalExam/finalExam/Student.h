@@ -22,8 +22,6 @@
     @property NSString *password;
     @property Grade *grades;
     -(void)showAllStudentInfo;
-//    +(Customer*)getCustomerFromArray:(NSString *)_studentID :(NSMutableArray *)_customersArray;
-//    -(BOOL)customerHasReservation;
 @end
 
 @implementation Student
@@ -43,21 +41,6 @@
         NSLog(@"-------------------------");
         [grades showGrades];
     }
-    //+(Customer*)getCustomerFromArray:(NSString *)_studentID :(NSMutableArray *)_customersArray {
-    //    for (Customer* customer in _customersArray){
-    //        if([customer.studentID isEqualToString:_studentID])
-    //            return customer;
-    //    }
-    //    [Utilities displayTitle:@"-" :[NSString stringWithFormat:@"Sorry! Customer ID %@ not exist!", _studentID] :NO];
-    //    return nil;
-    //}
-    //-(BOOL)customerHasReservation {
-    //    if (reservation) {
-    //        [Utilities displayTitle:@"-" :[NSString stringWithFormat:@"Sorry! Customer %@ has already a Reservation : %@", fullName, reservation.resID] :NO];
-    //        return YES;
-    //    }
-    //    return NO;
-    //}
 @end
 
 #endif /* student_h */

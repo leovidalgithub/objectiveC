@@ -1,0 +1,52 @@
+#IMPORTANT NOTE: Since I was working on a previous version on iOS Mac as well as XCode,
+I just uploaded the .m and .h files since it would not work on a current iOS mac.
+
+/* ------------------------------------------------------------------------------------ */
+
+QUESTION 9 :
+
+In order to be able to create this Objective-C application working under Windows 10 64bits, it was necessary:
+
+1.	Download and install VMware Workstation 14 Pro 
+2.	Install respecting the default options
+3.	Download and install
+a.	MacOS High Sierra 10.13.6 for VMware
+b.	Patch Tools <win-install.cmd> necessary to unlocked MacOS protection
+4.	Make sure MacOS is running well on Virtual Machine
+5.	From MacOS find on Internet and install XCode 9.4.2
+6.	In order to make MacOS full screen, it is necessary…
+    a.	 download ‘VMwareTool.iso’ and set this image as an external drive
+    b.	Install and follow the instructions under MacOS (as normal application)
+    c.	When done, you should be able to change the display settings and make the screen resolution to fit your monitor (1920x1080)
+
+To accomplish all of these tasks:
+Installing XCode MacOS under Windows 10 64bits      real time = 14 hours
+
+/* ------------------------------------------------------------------------------------ */
+QUESTION 8 :
+
+For the Calculating Grade letter I used a simple nested if-else:
+
+NOTE: My original intention was to use Switch but it seems that float number are not allowed,
+so I decided for nested if-else:
+
+    -(NSString *)calculateFinalGrade {
+        float total = (midTermExam + project + finalExam) / 3;
+        if (total >= 90) {
+            return @"A";
+        } else if (total >= 80) {
+            return @"B";
+        } else if (total >= 70) {
+            return @"C";
+        } else if (total >= 60) {
+            return @"D";
+        }
+        return @"F";
+    }
+
+First, I calculate the average of the 3 grades (all of them with same weight) and then
+if any of the condition is met, it just ends the function with Return so that it never gets to the final of the
+entire function. This function returns a String (A, B, C, D or F).
+
+/* ------------------------------------------------------------------------------------ */
+
